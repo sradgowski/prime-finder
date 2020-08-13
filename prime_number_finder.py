@@ -1,8 +1,9 @@
-import pandas as pd
 import numpy as np
 from mpmath import mp
+import pandas as pd
 
 mp.dps = 200
+
 e = str(mp.e)
 pi = str(mp.pi)
 phi = str(mp.phi)
@@ -16,28 +17,28 @@ primes = []
 def prime_check(start, end):
     for num in range(start, end + 1):  
         if num > 1:  
-            for i in range(2,num):  
+            for i in range(2, num):  
                 if (num % i) == 0:  
                     break  
             else:
                 primes.append(str(num))
 
-# x must be int, number must be string
-def slow_check(number, x): #x is order of prime
-    prime_check(10**(x-1), (10**x)-1)
-    for z in range(mp.dps-1):
-        if number[2+z:2+z+x] in primes:
-            print(number[2+z:2+z+x])
+# x must be Integer, number must be String
+def slow_check(number, x): # x is the order of prime
+    prime_check(10**(x - 1), (10**x) - 1)
+    for z in range(mp.dps - 1):
+        if number[2 + z: 2 + z + x] in primes:
+            print(number[2 + z: 2 + z + x])
 
-def fast_check(number, x): # Change back to -2 and 2+
+def fast_check(number, x):
     for z in range(mp.dps - 2):
-        num = int(number[2+z:2+z+x])
+        num = int(number[2 + z: 2 + z + x])
         if num > (10**(x-1)):
-            for i in range(2, int((num/2)+1)):
+            for i in range(2, int((num/2) + 1)):
                 if (num % i) == 0:
                     break
-            else:
-                print(num)
+        else:
+            print(num)
 
     
 def number_input():
@@ -72,7 +73,7 @@ def number_input():
     }
     return switcher.get(answer)
 
-
-fast_check(number_input(), int(input("""
-    What size prime numbers? (in digits)
-    """)))
+if __name__ == "__main__":
+    fast_check(number_input(), int(input("""
+        What length prime numbers shall we find? (in digits)
+        """)))
